@@ -12,6 +12,12 @@ function changeScript() {
     drawBlank()
   } else if (document.getElementById('script').value == 'drawCheckered()') {
     drawCheckered()
+  } else if (document.getElementById('script').value == 'drawCircle()') {
+    drawCircle()
+  } else if (document.getElementById('script').value == 'drawGradient()') {
+    drawGradient()
+  } else if (document.getElementById('script').value == 'helloWorld()') {
+    helloWorld()
   }
 }
 
@@ -21,15 +27,15 @@ function drawFlag() {
   ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0,0,600,300);
   ctx.fillStyle = "#FF0000";
-  ctx.fillRect(0,279,600,21);
-  ctx.fillRect(0,234,600,21);
-  ctx.fillRect(0,186,600,21);
-  ctx.fillRect(240,138,360,21);
-  ctx.fillRect(240,90,360,21);
-  ctx.fillRect(240,45,360,21);
-  ctx.fillRect(240,0,360,21);
+  ctx.fillRect(0,277,600,23);
+  ctx.fillRect(0,231,600,23);
+  ctx.fillRect(0,185,600,23);
+  ctx.fillRect(240,139,360,23);
+  ctx.fillRect(240,93,360,23);
+  ctx.fillRect(240,47,360,23);
+  ctx.fillRect(240,0,360,23);
   ctx.fillStyle = "#0000FF";
-  ctx.fillRect(0,0,240,159);
+  ctx.fillRect(0,0,240,162);
 
   ctx.fillStyle = '#FFFFFF'
   var pointX = 20;
@@ -80,7 +86,7 @@ function drawFlag() {
 
   if (i % 5 == 0){
     pointY += 30;
-    pointX = 40
+    pointX = 40;
   } else {
     pointX += 40;
   }
@@ -89,14 +95,14 @@ function drawFlag() {
 
 function drawBlank() {
   var c = document.getElementById("my_canvas");
-  var ctx = c.getContext("2d")
+  var ctx = c.getContext("2d");
   ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0,0,600,300);
 }
 
 function drawCheckered() {
   var c = document.getElementById("my_canvas");
-  var ctx = c.getContext("2d")
+  var ctx = c.getContext("2d");
   ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0,0,600,300);
   var yVal = 0;
@@ -122,4 +128,36 @@ function drawCheckered() {
       xVal += 20;
     }
   }
+}
+
+function drawCircle() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d")
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0,0,600,300);
+  ctx.fillStyle = "#FF0000"
+  ctx.beginPath();
+  ctx.arc(300,150,80,0,2*Math.PI);
+  ctx.fill();
+}
+
+function drawGradient() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d");
+  var grd = ctx.createLinearGradient(0,0,600,0);
+  grd.addColorStop(0,"red");
+  grd.addColorStop(1,"yellow");
+  // Fill with gradient
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,600,300);
+}
+
+function helloWorld() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d")
+  ctx.fillStyle = "#000000"
+  ctx.font = "60px Comic Sans MS";
+  ctx.textAlign = "center";
+  ctx.fillText("Hello World", 300, 150);
+
 }
