@@ -1,9 +1,10 @@
 body {
-    background-color: grey;
+    background-color: purple;
     text-align: center;
 }
 
 canvas {
 	border:1px solid #000000;
 	background-color: white;
+	text-align: left;
 }

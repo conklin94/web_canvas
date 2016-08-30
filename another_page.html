@@ -1,11 +1,15 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" type="text/css" href="mystyle2.css">
   </head>
   <body>
-    <h1>Custom Colors</h1>
-    <h3>Backround</h3>
-    <select id='background_color' onchange="changeBackground()">
+    <h1>Another Page</h1>
+    <h2>This one is cooler</h2>
+    <h3>But not really</h3>
+    <h1>The Canvas<h1>
+    <h3>Click to draw</h3>
+    <h4>Canvas Color</h3>
+    <select id='background' onchange="canvasBackground()">
       <option value=''>Select One</option>
       <option value='red'>Red</option>
       <option value='green'>Green</option>
@@ -24,10 +28,9 @@
       <option value='chartreuse'>Chartreuse</option>
       <option value='fuchsia'>Fuchsia</option>
       <option value='white'>White</option>
-      <option value='#ffffdd'>Off-White</option>option>
     </select>
-    <h3>Text</h3>
-    <select id='text_color' onchange="changeText()">
+    <h4>Shape Color</h3>
+    <select id='draw' onchange="drawColor()">
       <option value=''>Select One</option>
       <option value='red'>Red</option>
       <option value='green'>Green</option>
@@ -46,38 +49,20 @@
       <option value='chartreuse'>Chartreuse</option>
       <option value='fuchsia'>Fuchsia</option>
       <option value='white'>White</option>
-      <option value='#ffffdd'>Off-White</option>option>
     </select>
-    <br/>
-    <h3>Draw</h3>
-    <select id='script' onchange="changeScript()">
+    <h4>Shape</h4>
+    <select id='shape' onchange="drawShape()">
       <option value=''>Select One</option>
-      <option value='drawFlag()'>American Flag</option>
-      <option value='drawBlank()'>Blank</option>
-      <option value='drawCheckered()'>Checkered</option>
-      <option value='drawJapaneseFlag()'>Japanese Flag</option>
-      <option value='drawGradient()'>Red and Yellow</option>
-      <option value='helloWorld()'>Hello World</option>
-      <option value='drawClock()'>Clock</option>
-      <option value='drawBlack()'>Black</option>
-      <option value='drawBritishFlag()'>British Flag</option>
-      <option value='drawGermanFlag()'>German Flag</option>
+      <option value='drawStar()'>Star</option>
+      <option value='drawCircle()'>Circle</option>
     </select>
-    <br/>
     <br/>
     <br/>
     <canvas id='my_canvas' width="600" height="300">
     </canvas>
-    <script src="java_files.js"></script>
+    <script src="java_files2.js"></script>
     <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/another_page.html">Visit another page</a>
+      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/color_change.html">Go back</a>
     </p>
-    <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/reversi/reversi.html">Reversi</a>
-    </p>
-    <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/asteroids/asteroids.html">Asteroids</a>
-    </p>
-
   </body>
 </html>
