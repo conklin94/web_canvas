@@ -49,6 +49,12 @@
       <option value='#ffffdd'>Off-White</option>option>
     </select>
     <br/>
+    <br/>
+    <form id="custom_change">
+    Back: <input type="text" name="Background" value="#ffffff"><br/><br/>
+    Text: <input type="text" name="Text" value="#000000"><br/><br/>
+    <input type="button" value="Change" onclick="changeColor()">
+    </form>
     <h3>Draw</h3>
     <select id='script' onchange="changeScript()">
       <option value=''>Select One</option>
@@ -62,6 +68,8 @@
       <option value='drawBlack()'>Black</option>
       <option value='drawBritishFlag()'>British Flag</option>
       <option value='drawGermanFlag()'>German Flag</option>
+      <option value='rotatingStar()'>Rotating Star</option>
+      <option value='rotatingLine()'>Rotating Line</option>
     </select>
     <br/>
     <br/>
@@ -70,13 +78,13 @@
     </canvas>
     <script src="java_files.js"></script>
     <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/another_page.html">Visit another page</a>
+      <a href="another_page.html">Visit another page</a>
     </p>
     <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/reversi/reversi.html">Reversi</a>
+      <a href="reversi/reversi.html">Reversi</a>
     </p>
     <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/asteroids/asteroids.html">Asteroids</a>
+      <a href="asteroids/asteroids.html">Asteroids</a>
     </p>
 
   </body>

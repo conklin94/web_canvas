@@ -1,3 +1,5 @@
+var animation;
+
 function changeBackground() {
   document.body.style.backgroundColor = document.getElementById('background_color').value
  }
@@ -5,7 +7,13 @@ function changeText() {
   document.body.style.color = document.getElementById('text_color').value
 }
 
+function changeColor() {
+  document.body.style.backgroundColor = document.getElementById('custom_change').Background.value
+  document.body.style.color = document.getElementById('custom_change').Text.value
+}
+
 function changeScript() {
+  clearInterval(animation);
   if (document.getElementById('script').value == 'drawFlag()') {
     drawFlag();
   } else if (document.getElementById('script').value == 'drawBlank()') {
@@ -19,13 +27,17 @@ function changeScript() {
   } else if (document.getElementById('script').value == 'helloWorld()') {
     helloWorld();
   } else if (document.getElementById('script').value == 'drawClock()') {
-    drawClock();
+    animation = setInterval(drawClock,100);
   } else if (document.getElementById('script').value == 'drawBlack()') {
     drawBlack();
   } else if (document.getElementById('script').value == 'drawBritishFlag()') {
     drawBritishFlag();
   } else if (document.getElementById('script').value == 'drawGermanFlag()') {
     drawGermanFlag();
+  } else if (document.getElementById('script').value == 'rotatingStar()') {
+    animation = setInterval(rotatingStar,10);
+  } else if (document.getElementById('script').value == 'rotatingLine()') {
+    animation = setInterval(rotatingLine,1);
   }
 }
 
@@ -49,19 +61,15 @@ function drawFlag() {
   var pointX = 20;
   var pointY = 15;
   for (var i = 1; i < 31; i++) {
+    var angle = 0;
     ctx.fillStyle = "#FFFFFF";
     ctx.beginPath();
-    ctx.moveTo(pointX, pointY - 5);
-    ctx.lineTo(pointX - 2, pointY);
-    ctx.lineTo(pointX - 8, pointY);
-    ctx.lineTo(pointX - 3, pointY + 3);
-    ctx.lineTo(pointX - 6, pointY + 8);
-    ctx.lineTo(pointX, pointY + 5);
-    ctx.lineTo(pointX + 6, pointY + 8);
-    ctx.lineTo(pointX + 3, pointY + 3);
-    ctx.lineTo(pointX + 8, pointY);
-    ctx.lineTo(pointX + 2, pointY);
-    ctx.lineTo(pointX, pointY - 5);
+    ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 234) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 234) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 378) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 378) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 162) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 162) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 306) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 306) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 8));
     ctx.closePath();
     ctx.fill();
 
@@ -76,19 +84,15 @@ function drawFlag() {
   pointX = 40;
   pointY = 30;
   for (var i = 1; i < 21; i++) {
+    var angle = 0;
     ctx.fillStyle = "#FFFFFF";
     ctx.beginPath();
-    ctx.moveTo(pointX, pointY - 5);
-    ctx.lineTo(pointX - 2, pointY);
-    ctx.lineTo(pointX - 8, pointY);
-    ctx.lineTo(pointX - 3, pointY + 3);
-    ctx.lineTo(pointX - 6, pointY + 8);
-    ctx.lineTo(pointX, pointY + 5);
-    ctx.lineTo(pointX + 6, pointY + 8);
-    ctx.lineTo(pointX + 3, pointY + 3);
-    ctx.lineTo(pointX + 8, pointY);
-    ctx.lineTo(pointX + 2, pointY);
-    ctx.lineTo(pointX, pointY - 5);
+    ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 234) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 234) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 378) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 378) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 162) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 162) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 306) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 306) * (Math.PI / 180)) * 8));
+    ctx.lineTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 8),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 8));
     ctx.closePath();
     ctx.fill();
 
@@ -373,4 +377,56 @@ function drawGermanFlag() {
 
   ctx.fillStyle = "#FFFF00";
   ctx.fillRect(0,200,600,100)
+}
+
+var starAngle = 0
+function rotatingStar() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d");
+
+  if (starAngle > 360) {
+    starAngle -= 360;
+  }
+
+  starAngle += 1;
+  var angle = starAngle;
+  
+  var pointX = 300;
+  var pointY = 150;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,600,300);
+  ctx.fillStyle = "#FF0000";
+  ctx.beginPath();
+  ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 234) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 234) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 378) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 378) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 162) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 162) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 306) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 306) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 50));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function movingBall() {
+
+}
+
+function rotatingLine() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,600,300);
+  ctx.strokeStyle = "#000000";
+  var pointX = 300;
+  var pointY = 150;
+  if (starAngle > 360) {
+    starAngle -= 360;
+  }
+  starAngle += 9;
+  var angle = starAngle;
+  ctx.beginPath();
+  ctx.moveTo(pointX + (Math.cos((angle) * (Math.PI / 180)) * 150),pointY + (Math.sin((angle) * (Math.PI / 180)) * 150));
+  ctx.lineTo(pointX + (Math.cos((angle + 180) * (Math.PI / 180)) * 150),pointY + (Math.sin((angle + 180) * (Math.PI / 180)) * 150));
+  ctx.closePath();
+  ctx.stroke();
 }

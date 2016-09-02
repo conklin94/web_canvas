@@ -30,7 +30,7 @@
       <option value='white'>White</option>
     </select>
     <h4>Shape Color</h3>
-    <select id='draw' onchange="drawColor()">
+    <select id='draw'>
       <option value=''>Select One</option>
       <option value='red'>Red</option>
       <option value='green'>Green</option>
@@ -51,18 +51,25 @@
       <option value='white'>White</option>
     </select>
     <h4>Shape</h4>
-    <select id='shape' onchange="drawShape()">
+    <select id='shape'>
       <option value=''>Select One</option>
       <option value='drawStar()'>Star</option>
       <option value='drawCircle()'>Circle</option>
+      <option value='drawSquare()'>Square</option>
     </select>
     <br/>
     <br/>
-    <canvas id='my_canvas' width="600" height="300">
+    <form id="custom_change">
+    Diameter: <input type="text" name="diameter" value="20"><br/><br/>
+    <input type="button" value="Change" onclick="changeDiameter()">
+    </form>
+    <br/>
+    <br/>
+    <canvas id='my_canvas' width="600" height="300" onclick="drawShape()">
     </canvas>
     <script src="java_files2.js"></script>
     <p>
-      <a href="file:///Users/sconklin/Projects/Personal/web_canvas/color_change.html">Go back</a>
+      <a href="color_change.html">Go back</a>
     </p>
   </body>
 </html>
