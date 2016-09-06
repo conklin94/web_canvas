@@ -1,75 +1,109 @@
 //Takes in the point and angle of the ship, then draws it on the screen
-var pointX = 300;
-var pointY = 300;
-var angle = 0;
+var canvas;
+var ctx;
+var WIDTH = 600;
+var HEIGHT = 600;
+var shipPointX = 300;
+var shipPointY = 300;
+var shipAngle = 0;
+var shipDx = 0;
+var shipDy = 0;
+var animation;
+var rockPointX = Math.floor((Math.random() * 600));
+var rockPointY = Math.floor((Math.random() * 600));
+var rockAngle = Math.floor((Math.random() * 360));
+var rockDy = (Math.cos((rockAngle - 90) * (Math.PI / 180)))
+var rockDx = (Math.sin((shipAngle - 90) * (Math.PI / 180)))
 
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-ctx.fillStyle = "#000000";
-ctx.fillRect(0,0,600,600);
+init();
 
-drawShip();
+function init() {
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  return animation = setInterval(draw, 10);
+}
 
-pointX = 200;
-pointY = 200;
-angle = 0;
+function draw() {
+  clear();
+  ctx.fillStyle = "#000000";
+  ctx.strokeStyle = "#ffffff"
+  rect(0,0,WIDTH,HEIGHT);
+  advanceObjects();
+  drawShip(shipPointX,shipPointY,shipAngle);
+  drawBigRock(rockPointX,rockPointY,rockAngle);
+}
 
-drawBigRock();
+function advanceObjects() {
+  shipPointX += shipDx;
+  shipPointY += shipDy;
+  if (shipPointX > 600) {
+    shipPointX -= 600;
+  }
+  if (shipPointY > 600) {
+    shipPointY -= 600;
+  }
+  if (shipPointX < 0) {
+    shipPointX += 600;
+  }
+  if (shipPointY < 0) {
+    shipPointY += 600;
+  }
+  rockPointX += rockDx;
+  rockPointY += rockDy;
+  rockAngle += 1;
+  if (rockPointX > 600) {
+    rockPointX -= 600;
+  }
+  if (rockPointY > 600) {
+    rockPointY -= 600;
+  }
+  if (rockPointX < 0) {
+    rockPointX += 600;
+  }
+  if (rockPointY < 0) {
+    rockPointY += 600;
+  }
+}
 
-pointX = 400;
-pointY = 200;
-angle = 180;
+function rect(x,y,w,h) {
+ctx.beginPath();
+ctx.rect(x,y,w,h);
+ctx.closePath();
+ctx.fill();
+ctx.stroke();
+}
 
-drawMediumRock();
+function clear() {
+ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
 
-pointX = 500;
-pointY = 400;
-angle = 45;
+function doKeyDown(evt){
+  switch (evt.keyCode) {
+    case 38:  /* Up arrow was pressed */
+    shipDx += (Math.cos((shipAngle - 90) * (Math.PI / 180)) * .7);
+    shipDy += (Math.sin((shipAngle - 90) * (Math.PI / 180)) * .7);
+    break;
+    case 40:  /* Down arrow was pressed */
+    ;
+    break;
+    case 37:  /* Left arrow was pressed */
+    shipAngle -= 9;
+    if (shipAngle < 0) {
+      shipAngle += 360;
+    }
+    break;
+    case 39:  /* Right arrow was pressed */
+    shipAngle += 9;
+    if (shipAngle > 360) {
+      shipAngle -= 360;
+    }
+    break;
+  }
+}
 
-drawSmallRock();
+window.addEventListener('keydown',doKeyDown,true);
 
-pointX = 200;
-pointY = 400;
-angle = 215;
-
-drawShip();
-
-pointX = 300;
-pointY = 400;
-angle = 200;
-
-drawBigRock();
-
-pointX = 100;
-pointY = 300;
-angle = 45;
-
-drawMediumRock();
-
-pointX = 300;
-pointY = 250;
-
-drawBullet();
-
-pointY = 225;
-
-drawBullet();
-
-pointY = 200;
-
-drawBullet();
-
-pointY = 175;
-
-drawBullet();
-
-pointX = 550;
-pointY = 50;
-
-drawBigRock();
-
-function drawShip() {
-  ctx.fillRect(0,0,600,600);
+function drawShip(pointX,pointY,angle) {
   ctx.strokeStyle = "#ffffff";
  
   ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 12),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 12));
@@ -80,7 +114,7 @@ function drawShip() {
   ctx.stroke();
 }
 
-function drawBigRock() {
+function drawBigRock(pointX,pointY,angle) {
   ctx.strokeStyle = "#ffffff"
   ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 50));
   ctx.lineTo(pointX + (Math.cos((angle - 100) * (Math.PI / 180)) * 45),pointY + (Math.sin((angle - 100) * (Math.PI / 180)) * 45));
@@ -101,7 +135,7 @@ function drawBigRock() {
   ctx.stroke();
 }
 
-function drawMediumRock() {
+function drawMediumRock(pointX,pointY,angle) {
   ctx.strokeStyle = "#ffffff"
   ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 25),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 25));
   ctx.lineTo(pointX + (Math.cos((angle - 100) * (Math.PI / 180)) * 20),pointY + (Math.sin((angle - 100) * (Math.PI / 180)) * 20));
@@ -122,7 +156,7 @@ function drawMediumRock() {
   ctx.stroke();
 }
 
-function drawSmallRock() {
+function drawSmallRock(pointX,pointY,angle) {
   ctx.strokeStyle = "#ffffff"
   ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 12),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 12));
   ctx.lineTo(pointX + (Math.cos((angle - 100) * (Math.PI / 180)) * 10),pointY + (Math.sin((angle - 100) * (Math.PI / 180)) * 10));
@@ -143,7 +177,7 @@ function drawSmallRock() {
   ctx.stroke();
 }
 
-function drawBullet() {
+function drawBullet(pointX,pointY) {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(pointX - 1,pointY - 1,2,2);
 }

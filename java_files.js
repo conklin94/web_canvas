@@ -38,6 +38,14 @@ function changeScript() {
     animation = setInterval(rotatingStar,10);
   } else if (document.getElementById('script').value == 'rotatingLine()') {
     animation = setInterval(rotatingLine,1);
+  } else if (document.getElementById('script').value == 'movingBall()') {
+    animation = setInterval(movingBall,50);
+  } else if (document.getElementById('script').value == 'fallingStar()') {
+    animation = setInterval(fallingStar,10);
+  } else if (document.getElementById('script').value == 'init()') {
+    init();
+  } else if (document.getElementById('script').value == 'bouncingBall()') {
+    animation = setInterval(bouncingBall,5);
   }
 }
 
@@ -407,8 +415,46 @@ function rotatingStar() {
   ctx.fill();
 }
 
-function movingBall() {
+var ballPointX = 300;
+var ballPointY = 150;
 
+function movingBall() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d")
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0,0,600,300)
+  ctx.fillStyle = "#ff0000"
+  ctx.beginPath();
+  ctx.arc(ballPointX,ballPointY,30,0,2*Math.PI);
+  ctx.fill();
+
+  var negative = 0;
+  negative = Math.floor((Math.random() * 100) + 1);
+  if (negative > 50) {
+     ballPointX += Math.floor((Math.random() * 10) + 1) *-1;
+  } else {
+     ballPointX += Math.floor((Math.random() * 10) + 1);
+  }
+
+  negative = Math.floor((Math.random() * 100) + 1);
+  if (negative > 50) {
+     ballPointY += Math.floor((Math.random() * 10) + 1) *-1;
+  } else {
+     ballPointY += Math.floor((Math.random() * 10) + 1);
+  }
+
+  if (ballPointX > 600) {
+    ballPointX -= 600;
+  }
+  if (ballPointY > 300) {
+    ballPointY -= 300;
+  }
+  if (ballPointX < 0) {
+    ballPointX += 600;
+  }
+  if (ballPointY < 0) {
+    ballPointY += 300;
+  }
 }
 
 function rotatingLine() {
@@ -430,3 +476,154 @@ function rotatingLine() {
   ctx.closePath();
   ctx.stroke();
 }
+
+var starPointX = 300;
+var starPointY = 150;
+var velX = 1;
+var velY = 1;
+var velSpin = 1;
+
+function fallingStar() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d");
+
+  if (starAngle > 360) {
+    starAngle -= 360;
+  }
+
+  starAngle += velSpin;
+  var angle = starAngle;
+  
+  var pointX = starPointX;
+  var pointY = starPointY;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,600,300);
+  ctx.fillStyle = "#FF0000";
+  ctx.beginPath();
+  ctx.moveTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 234) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 234) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 378) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 378) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 162) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 162) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 306) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 306) * (Math.PI / 180)) * 50));
+  ctx.lineTo(pointX + (Math.cos((angle - 90) * (Math.PI / 180)) * 50),pointY + (Math.sin((angle - 90) * (Math.PI / 180)) * 50));
+  ctx.closePath();
+  ctx.fill();
+
+  starPointX += velX;
+  starPointY += velY;
+  if (starPointX > 600) {
+    starPointX -= 600;
+    velX = Math.floor((Math.random() * 10) + 1);
+    velY = Math.floor((Math.random() * 10) + 1);
+    velSpin = Math.floor((Math.random() * 10) + 1);
+  }
+  if (starPointY > 300) {
+    starPointY -= 300;
+    velX = Math.floor((Math.random() * 10) + 1);
+    velY = Math.floor((Math.random() * 10) + 1);
+    velSpin = Math.floor((Math.random() * 10) + 1);
+  }
+
+}
+
+var ballVelX = 1;
+var ballVelY = 3;
+
+function bouncingBall() {
+  var c = document.getElementById("my_canvas");
+  var ctx = c.getContext("2d")
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0,0,600,300)
+  ctx.fillStyle = "#ff0000"
+  ctx.beginPath();
+  ctx.arc(ballPointX,ballPointY,30,0,2*Math.PI);
+  ctx.fill();
+  ballPointX += ballVelX;
+  ballPointY += ballVelY;
+  if (ballPointX > 600) {
+    ballPointX = 600;
+    ballVelX *= -1;
+  }
+  if (ballPointY > 300) {
+    ballPointY = 300;
+    ballVelY *= -1;
+  }
+  if (ballPointX < 0) {
+    ballPointX = 0;
+    ballVelX *= -1;
+  }
+  if (ballPointY < 0) {
+    ballPointY = 0;
+    ballVelY *= -1;
+  }
+}
+
+// Added stuff for moving an object
+var canvas
+var ctx;
+var dx = 5;
+var dy = 5;
+var x = 300;
+var y = 150;
+var WIDTH = 600;
+var HEIGHT = 300;
+
+function circle(x,y,r) {
+ctx.beginPath();
+ctx.arc(x, y, r, 0, Math.PI*2, true);
+ctx.fill();
+}
+
+function rect(x,y,w,h) {
+ctx.beginPath();
+ctx.rect(x,y,w,h);
+ctx.closePath();
+ctx.fill();
+ctx.stroke();
+}
+
+function clear() {
+ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+function init() {
+canvas = document.getElementById("my_canvas");
+ctx = canvas.getContext("2d");
+return animation = setInterval(draw, 10);
+}
+
+function doKeyDown(evt){
+switch (evt.keyCode) {
+case 38:  /* Up arrow was pressed */
+if (y - dy > 0){
+y -= dy;
+}
+break;
+case 40:  /* Down arrow was pressed */
+if (y + dy < HEIGHT){
+y += dy;
+}
+break;
+case 37:  /* Left arrow was pressed */
+if (x - dx > 0){
+x -= dx;
+}
+break;
+case 39:  /* Right arrow was pressed */
+if (x + dx < WIDTH){
+x += dx;
+}
+break;
+}
+}
+
+function draw() {
+clear();
+ctx.fillStyle = "white";
+ctx.strokeStyle = "black";
+rect(0,0,WIDTH,HEIGHT);
+ctx.fillStyle = "purple";
+circle(x, y, 10);
+}
+
+window.addEventListener('keydown',doKeyDown,true);
